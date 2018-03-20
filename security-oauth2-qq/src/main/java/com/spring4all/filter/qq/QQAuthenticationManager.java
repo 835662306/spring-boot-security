@@ -20,7 +20,7 @@ import java.util.List;
 import static com.spring4all.filter.qq.QQAuthenticationFilter.clientId;
 
 public class QQAuthenticationManager implements AuthenticationManager {
-    private static final List<GrantedAuthority> AUTHORITIES = new ArrayList<>();
+    private static final List<GrantedAuthority> AUTHORITIES = new ArrayList<GrantedAuthority>();
 
     /**
      * 获取 QQ 登录信息的 API 地址
