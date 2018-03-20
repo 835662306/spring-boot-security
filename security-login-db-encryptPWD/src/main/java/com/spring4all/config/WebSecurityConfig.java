@@ -7,15 +7,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     private AnyUserDetailsService anyUserDetailsService;
 
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
+
     @Autowired
-    public void setAnyUserDetailsService(AnyUserDetailsService anyUserDetailsService){
+    public void setAnyUserDetailsService(AnyUserDetailsService anyUserDetailsService, CustomAuthenticationSuccessHandler authenticationSuccessHandler){
         this.anyUserDetailsService = anyUserDetailsService;
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
     }
 
     /**
@@ -32,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/").permitAll()
                 .antMatchers("/user/**").hasRole("USER")
                 .and()
-                .formLogin().loginPage("/login").defaultSuccessUrl("/user")
+                .formLogin().loginPage("/login").successHandler(authenticationSuccessHandler)
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/login");
     }
