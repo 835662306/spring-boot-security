@@ -42,7 +42,7 @@ public class AnyUserDetailsService implements UserDetailsService {
      */
     private List<SimpleGrantedAuthority> createAuthorities(String roleStr){
         String[] roles = roleStr.split(",");
-        List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+        List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<SimpleGrantedAuthority>();
         for (String role : roles) {
             simpleGrantedAuthorities.add(new SimpleGrantedAuthority(role));
         }
