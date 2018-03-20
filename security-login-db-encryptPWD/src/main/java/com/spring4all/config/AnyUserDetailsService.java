@@ -1,5 +1,6 @@
 package com.spring4all.config;
 
+import com.spring4all.entity.UserEntity;
 import com.spring4all.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -8,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import com.spring4all.entity.UserEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +18,22 @@ public class AnyUserDetailsService implements UserDetailsService {
 
     private final UserService userService;
 
+//    private final CustomService customService;
+
     @Autowired
     AnyUserDetailsService(UserService userService){
         this.userService = userService;
     }
 
+//    @Autowired
+//    AnyUserDetailsService(CustomService customService){
+//        this.customService = customService;
+//    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity = userService.getByUsername(username);
+//        CustomEntity userEntity = customService.getByUsername(username);
         if (userEntity == null){
             throw new UsernameNotFoundException("用户不存在！");
         }

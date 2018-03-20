@@ -24,14 +24,14 @@ public class UserController {
     @GetMapping("/sales")
     public String user(@AuthenticationPrincipal Principal principal, Model model){
         UserEntity user = userService.getByUsername(principal.getName());
-        model.addAttribute("user", user);
+        model.addAttribute("username", user);
         return "user/sales";
     }
 
     @GetMapping("/order")
     public String order(@AuthenticationPrincipal Principal principal, Model model){
         UserEntity user = userService.getByUsername(principal.getName());
-        model.addAttribute("user", user);
+        model.addAttribute("username", user);
         return "user/order";
     }
 
